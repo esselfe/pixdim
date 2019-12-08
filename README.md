@@ -4,6 +4,8 @@ The pixdim project is a program and libraries (shared & static)
 that reports JPG & PNG image dimensions. The color_depth/pixel_size  
 can also be retrieved using the verbose option.  
 Other file formats might be implemented in the future.  
+
+You'll need to install make, gcc, file-devel, libjpeg-devel and libpng16-devel
   
 Typical use:  
 > host@~$ pixdim ~/Pictures/161019.jpg  
