@@ -8,7 +8,7 @@ OBJS = $(OBJDIR)/jpg.o $(OBJDIR)/png.o $(OBJDIR)/stat.o $(OBJDIR)/pixdim.o
 PROGOBJS = $(OBJDIR)/main.o
 
 # shared lib symbols
-SHAREDOBJS = $(OBJDIR)/jpg.lo $(OBJDIR)/png.lo $(OBJDIR)/stat.lo $(OBJDIR)/pixdim.lo
+SHAREDOBJS = $(OBJDIR)/jpg.sto $(OBJDIR)/png.sto $(OBJDIR)/stat.sto $(OBJDIR)/pixdim.sto
 
 PROGNAME ?= pixdim
 PROGNAME_STATIC ?= pixdim.stx
@@ -50,27 +50,27 @@ $(OBJDIR)/main.o: main.c jpg.c png.c pixdim.h
 	gcc -c $(CFLAGS) main.c -o $(OBJDIR)/main.o
 
 # Shared lib's object files
-$(OBJDIR)/jpg.lo: jpg.c
-	gcc -c $(CFLAGS) -fPIC jpg.c -o $(OBJDIR)/jpg.lo
+$(OBJDIR)/jpg.sto: jpg.c
+	gcc -c $(CFLAGS) -fPIC jpg.c -o $(OBJDIR)/jpg.sto
 
-$(OBJDIR)/png.lo: png.c
-	gcc -c $(CFLAGS) -fPIC png.c -o $(OBJDIR)/png.lo
+$(OBJDIR)/png.sto: png.c
+	gcc -c $(CFLAGS) -fPIC png.c -o $(OBJDIR)/png.sto
 
-$(OBJDIR)/stat.lo: stat.c
-	gcc -c $(CFLAGS) -fPIC stat.c -o $(OBJDIR)/stat.lo
+$(OBJDIR)/stat.sto: stat.c
+	gcc -c $(CFLAGS) -fPIC stat.c -o $(OBJDIR)/stat.sto
 
-$(OBJDIR)/pixdim.lo: pixdim.c pixdim.h
-	gcc -c $(CFLAGS) -fPIC pixdim.c -o $(OBJDIR)/pixdim.lo
+$(OBJDIR)/pixdim.sto: pixdim.c pixdim.h
+	gcc -c $(CFLAGS) -fPIC pixdim.c -o $(OBJDIR)/pixdim.sto
 
 $(SHAREDLIBNAME): $(SHAREDOBJS)
-	gcc -shared -fPIC $(LDFLAGS) $(SHAREDOBJS) -o $(SHAREDLIBNAME)
+	gcc -shared -fPIC $(SHAREDOBJS) $(LDFLAGS) -o $(SHAREDLIBNAME)
 
 $(STATICLIBNAME): $(OBJS)
 	ar cr $(STATICLIBNAME) $(OBJS)
 	ranlib $(STATICLIBNAME)
 
 $(PROGNAME): $(OBJS) $(PROGOBJS)
-	gcc -L/usr/lib/x86_64-linux-gnu $(LDFLAGS) $(OBJS) $(PROGOBJS) -o $(PROGNAME)
+	gcc $(OBJS) $(PROGOBJS) $(LDFLAGS) -o $(PROGNAME)
 #	@echo "$(LIB_INSTALLDIR)/$(SHAREDLIBNAME)"
 #	if [ -e $(LIB_INSTALLDIR)/$(SHAREDLIBNAME) ]; then \
 #		ls -li $(LIB_INSTALLDIR)/$(SHAREDLIBNAME); \
