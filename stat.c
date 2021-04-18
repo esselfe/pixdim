@@ -10,7 +10,7 @@ static struct stat st01;
 
 off_t pixdimStatFilesize(char *filename) {
 	if (pixdim_options & PIXDIM_OPTION_DEBUG)
-		printf("pixdim stat off_t type size: %lu\n", sizeof(off_t));
+		printf("pixdim stat off_t type size: %lu\n", (unsigned long)sizeof(off_t));
 
 	if (stat(filename,&st01) < 0) {
 		fprintf(stderr,"pixdimStatFilesize(): Cannot open %s: %s\n",
@@ -25,7 +25,7 @@ off_t pixdimStatFilesize(char *filename) {
 (ino_t == unsigned long) */
 ino_t pixdimStatInode(char *filename) {
 	if (pixdim_options & PIXDIM_OPTION_DEBUG)
-		printf("pixdim stat ino_t type size: %lu\n", sizeof(ino_t));
+		printf("pixdim stat ino_t type size: %lu\n", (unsigned long)sizeof(ino_t));
 	
 	if (stat(filename,&st01) < 0) {
 		fprintf(stderr,"pixdimStatInode(): Cannot open %s: %s\n",
