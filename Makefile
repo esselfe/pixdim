@@ -1,5 +1,5 @@
 
-CFLAGS = -std=c11 -Wall -Werror -O0 -g -D_GNU_SOURCE
+CFLAGS = -std=c11 -Wall -O2 -g -D_GNU_SOURCE
 LDFLAGS = -lm -lz -lmagic -ljpeg -lpng
 OBJDIR = obj
 
