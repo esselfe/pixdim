@@ -26,7 +26,7 @@ void pixdimJPG_ShowSize (char *filename) {
 	else if (pixdim_options & PIXDIM_OPTION_VERBOSE)
 		printf ("%d %d %d %s\n", width, height, pixel_size, filename);
 	else
-		printf ("%d %d\n", width, height);
+		printf ("%d %d %s\n", width, height, filename);
 }
 
 int pixdimJPG_GetSize (char *filename, unsigned int *width, 

@@ -14,30 +14,30 @@ void pixdimPNG_ShowSize (char *filename) {
 	if (pixdimPNG_GetSize (filename, &width, &height, &pixel_size))
 		return;
 	/*else if (width == 0 || height == 0 || pixel_size == 0) {
-        width = 0;
-        height = 0;
-        pixel_size = 0;
-    }*/
+		width = 0;
+		height = 0;
+		pixel_size = 0;
+	}*/
 
 	if (pixdim_options & PIXDIM_OPTION_DEBUG)
 		printf ("%u %u %u %s\n", width, height, pixel_size, filename);
 	else if (pixdim_options & PIXDIM_OPTION_VERBOSE)
 		printf ("%u %u %u %s\n", width, height, pixel_size, filename);
 	else
-		printf ("%u %u\n", width, height);
+		printf ("%u %u %s\n", width, height, filename);
 }
 
 int pixdimPNG_GetSize (char *filename, unsigned int *width,
 	unsigned int *height, unsigned int *pixel_size) {
 	// Check the validity of the file extension against the magic file type
-/*    magic_t mgc = magic_open (MAGIC_SYMLINK | MAGIC_PRESERVE_ATIME | MAGIC_MIME_TYPE);
-    if (mgc != NULL) {
-        magic_load (mgc, NULL);
-        if (strcmp(magic_file (mgc, filename),"image/jpeg")==0) {
-        	magic_close (mgc);
-            return pixdimJPG_GetSize (filename, width, height, pixel_size);
+/*	magic_t mgc = magic_open (MAGIC_SYMLINK | MAGIC_PRESERVE_ATIME | MAGIC_MIME_TYPE);
+	if (mgc != NULL) {
+		magic_load (mgc, NULL);
+		if (strcmp(magic_file (mgc, filename),"image/jpeg")==0) {
+			magic_close (mgc);
+			return pixdimJPG_GetSize (filename, width, height, pixel_size);
 		}
-    }
+	}
 */
 	*width = 0;
 	*height = 0;
@@ -47,7 +47,7 @@ int pixdimPNG_GetSize (char *filename, unsigned int *width,
 	FILE *fp = fopen (filename, "rb");
 	if (fp == NULL) {
 		fprintf (stderr, "%s:%s() error: Cannot open %s: %s\n", pixdim_name,
-		__FUNCTION__, filename, strerror(errno));
+			__FUNCTION__, filename, strerror(errno));
 		return 1;
 	}
 
