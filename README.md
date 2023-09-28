@@ -1,11 +1,12 @@
 # pixdim  
   
 The pixdim project is a program and libraries (shared & static)  
-that reports JPG & PNG image dimensions. The color_depth/pixel_size  
+that reports GIF, JPG & PNG image dimensions. The color_depth/pixel_size  
 can also be retrieved using the verbose option.  
 Other file formats might be implemented in the future.  
 
-You'll need to install make, gcc, file-devel, libjpeg-devel and libpng16-devel
+You'll need to install make, gcc, file-devel (aka libmagic-dev),  
+libgif-devel, libjpeg-devel and libpng16-devel.  
   
 Typical use:  
 ```
@@ -30,5 +31,5 @@ make PREFIX=/usr install
 ```
   
 If the libpixdim.so library is installed, the program will  
-be linked against. Otherwise all functions will be built in.  
+be linked against it. Otherwise all functions will be built in.  
   
