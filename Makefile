@@ -1,17 +1,19 @@
 
 CFLAGS = -std=c11 -Wall -O2 -g -D_GNU_SOURCE
-LDFLAGS = -lm -lz -lmagic -ljpeg -lpng
+LDFLAGS = -lm -lz -lmagic -ljpeg -lpng -lgif
 OBJDIR = obj
 
-# executable symbols
-OBJS = $(OBJDIR)/jpg.o $(OBJDIR)/png.o $(OBJDIR)/stat.o $(OBJDIR)/pixdim.o
+# executable objects
+OBJS = $(OBJDIR)/gif.o $(OBJDIR)/jpg.o $(OBJDIR)/png.o \
+$(OBJDIR)/stat.o $(OBJDIR)/pixdim.o
 PROGOBJS = $(OBJDIR)/main.o
 
-# shared lib symbols
-SHAREDOBJS = $(OBJDIR)/jpg.sto $(OBJDIR)/png.sto $(OBJDIR)/stat.sto $(OBJDIR)/pixdim.sto
+# shared lib objects
+SHAREDOBJS = $(OBJDIR)/gif.sto $(OBJDIR)/jpg.sto $(OBJDIR)/png.sto \
+$(OBJDIR)/stat.sto $(OBJDIR)/pixdim.sto
 
 PROGNAME ?= pixdim
-PROGNAME_STATIC ?= pixdim.stx
+PROGNAME_STATIC ?= pixdim.static
 PIXDIM_VERSION=$(shell grep "pixdim_version.*=" pixdim.c |awk '{ print $$6 }' |sed 's/"//g;s/;//')
 SHAREDLIBNAME = libpixdim.so
 STATICLIBNAME = libpixdim.a
@@ -34,6 +36,9 @@ prepare:
 	@[ -d $(OBJDIR) ] || mkdir $(OBJDIR)
 
 # program object files
+$(OBJDIR)/gif.o: gif.c
+	gcc -c $(CFLAGS) gif.c -o $(OBJDIR)/gif.o
+
 $(OBJDIR)/jpg.o: jpg.c
 	gcc -c $(CFLAGS) jpg.c -o $(OBJDIR)/jpg.o
 
@@ -50,6 +55,9 @@ $(OBJDIR)/main.o: main.c jpg.c png.c pixdim.h
 	gcc -c $(CFLAGS) main.c -o $(OBJDIR)/main.o
 
 # Shared lib's object files
+$(OBJDIR)/gif.sto: gif.c
+	gcc -c $(CFLAGS) -fPIC gif.c -o $(OBJDIR)/gif.sto
+
 $(OBJDIR)/jpg.sto: jpg.c
 	gcc -c $(CFLAGS) -fPIC jpg.c -o $(OBJDIR)/jpg.sto
 
@@ -79,10 +87,10 @@ $(PROGNAME): $(OBJS) $(PROGOBJS)
 #		gcc $(LDFLAGS) $(OBJS) $(PROGOBJS) -o $(PROGNAME); \
 #	fi;
 
-$(PROGNAME_STATIC): pixdim.h pixdim.c jpg.c png.c stat.c main.c
+$(PROGNAME_STATIC): pixdim.h pixdim.c gif.c jpg.c png.c stat.c main.c
 	gcc -std=c11 -Wall -Werror -g -O2 -static \
-	pixdim.c jpg.c png.c stat.c main.c \
-	-ljpeg -lpng -lmagic -lz -lm \
+	pixdim.c gif.c jpg.c png.c stat.c main.c \
+	-ljpeg -lpng -lgif -lmagic -lz -lm \
 	-o $(PROGNAME_STATIC)
 
 install: install_header install_lib install_prog

@@ -12,6 +12,11 @@ extern unsigned int pixdim_options;
 // pixdim.c
 void pixdimVersionStringShow (void);
 
+// gif.c
+int pixdimGIF_GetSize(char *filename, unsigned int *width,
+	unsigned int *height, unsigned int *pixel_size);
+void pixdimGIF_ShowSize(char *filename);
+
 // jpg.c
 int pixdimJPG_GetSize (char *filename, unsigned int *width,
 	unsigned int *height, unsigned int *pixel_size);

@@ -68,10 +68,15 @@ int main (int argc, char **argv) {
     for (cnt = 1; cnt < argc; cnt++) {
 		magic_str = (char *)magic_file (mgc, argv[cnt]);
 		if (magic_str != NULL) {
-			if (strcmp(magic_str,"image/jpeg")==0)
-                pixdimJPG_ShowSize (argv[cnt]);
+			if (strcmp(magic_str, "image/gif") == 0)
+				pixdimGIF_ShowSize(argv[cnt]);
+			else if (strcmp(magic_str,"image/jpeg")==0)
+		                pixdimJPG_ShowSize (argv[cnt]);
 			else if (strcmp(magic_str,"image/png")==0)
-                pixdimPNG_ShowSize (argv[cnt]);
+                		pixdimPNG_ShowSize (argv[cnt]);
+                	
+                	if (pixdim_options & PIXDIM_OPTION_DEBUG)
+				printf("  mime-type: %s\n", magic_str);
 		}
     }
 
