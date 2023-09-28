@@ -3,7 +3,7 @@
 #include "pixdim.h"
 
 const char *pixdim_name = "pixdim";
-static const char *pixdim_version_string = "0.1.7";
+static const char *pixdim_version_string = "0.2.0";
 unsigned int pixdim_options;
 
 void pixdimVersionStringShow (void) {
